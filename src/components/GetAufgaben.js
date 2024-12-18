@@ -68,7 +68,8 @@ export default function FetchCSVData() {
     //const appsScriptUrl = "https://script.google.com/macros/s/AKfycbyzA5Ly5TBy-ITSqwrL4kJDmz6hgooh6qFjCLSV-Oi6xoBbghHfAlnRctJ5f-TmOw6wFA/exec?type=api"
     //const appsScriptUrl = "https://script.google.com/macros/s/AKfycbwEPO_lLY182Umdg4QPV4AkWZcjyd1UpO4Ww8gtcs8osT7xz1EyYsPcq31TYeFfJKw6/exec?type=api"
     //const appsScriptUrl = "https://script.google.com/macros/s/AKfycbyYYxmp_seUig0YOLTfFqaI902accksW9bEZy9hADG2UKogb1FvBw8tm0EUUI6WGaEN3A/exec?type=api"
-    const appsScriptUrl = "https://script.google.com/macros/s/AKfycbyAgR6gOivQlb-msYwPyki1IgS07njmFFUOA68hbr7cYmRjrk9MAdVDlKL8TSJyfXcwCQ/exec?type=api"
+    //const appsScriptUrl = "https://script.google.com/macros/s/AKfycbyAgR6gOivQlb-msYwPyki1IgS07njmFFUOA68hbr7cYmRjrk9MAdVDlKL8TSJyfXcwCQ/exec?type=api"
+    const appsScriptUrl = "https://script.google.com/macros/s/AKfycbzWb5FF0kMz64OFPEI2XPcNk_DUf7KHkjr2jdYw3Fe_vwu0PP7jYiwh53QdoncYNXjDng/exec?type=api"
     
     const fetchCSVData = useCallback(async () => {
         try {
@@ -77,6 +78,7 @@ export default function FetchCSVData() {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const sanitizedData = await response.json();
+            console.log(sanitizedData)
 
             // Filter rows based on the "Publish" column (now done on client-side)
             const publishedData = sanitizedData.filter(item =>
