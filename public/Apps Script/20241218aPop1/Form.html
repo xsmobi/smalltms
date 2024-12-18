@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Data Entry Form</title>
+    <!-- Add Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Additional custom styles (if needed) */
+    </style>
+  </head>
+  <body class="bg-slate-100 max-w-[500px] w-full m-auto rounded-md shadow-xl p-4">
+    <!--<h1>Data Entry Form</h1>-->
+    <h2>Search</h2>
+    <input type="text" id="searchQuery" placeholder="Search..." oninput="searchRows()"
+      class="w-full p-2 border border-gray-300 rounded-md" />
+    <table id="searchResults">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    
+    <form id="dataForm" class="space-y-4 p-6 bg-gray-100 rounded-lg shadow-md">
+    <input
+      type="text"
+      id="id"
+      placeholder="ID (Auto-filled for editing)"
+      readonly
+      class="w-full p-2 border border-gray-300 rounded-md bg-gray-200 cursor-not-allowed"
+    />
+    <input
+      type="text"
+      id="Publish"
+      placeholder="Publish"
+      class="w-full p-2 border border-gray-300 rounded-md"
+    />
+    <div class="mb-4">
+      <label for="Title" class="block text-sm font-medium text-gray-700">Title</label>
+      <textarea
+        id="Title"
+        placeholder="Title"
+        rows="4"
+        class="w-full p-2 border border-gray-300 rounded-md"
+      ></textarea>
+    </div>
+    <div class="mb-4">
+      <label for="Description" class="block text-sm font-medium text-gray-700">Description</label>
+      <textarea
+        id="Description"
+        placeholder="Description"
+        rows="4"
+        class="w-full p-2 border border-gray-300 rounded-md"
+      ></textarea>
+    </div>
+    <div class="mb-4">
+      <label for="Type" class="block text-sm font-medium text-gray-700">Type</label>
+      <select id="Type" class="w-full p-2 border border-gray-300 rounded-md">
+        <!-- Options will be dynamically populated -->
+      </select>
+      <input
+        type="text"
+        id="newType"
+        placeholder="Add new type"
+        class="w-full p-2 mt-2 border border-gray-300 rounded-md"
+      />
+      <button
+        type="button"
+        onclick="addNewType()"
+        class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mt-2"
+      >
+        Add Type
+      </button>
+    </div>
+    </div>
+    <div class="mb-4">
+      <label for="Tags" class="block text-sm font-medium text-gray-700">Tags</label>
+      <select id="Tags" multiple class="w-full p-2 border border-gray-300 rounded-md">
+        <!-- Options will be dynamically populated -->
+      </select>
+      <input
+        type="text"
+        id="newTag"
+        placeholder="Add new tag"
+        class="w-full p-2 mt-2 border border-gray-300 rounded-md"
+      />
+      <button
+        type="button"
+        onclick="addNewTag()"
+        class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mt-2"
+      >
+        Add Tag
+      </button>
+    </div>
+    <button
+      type="button"
+      onclick="addRow()"
+      class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+    >
+      Add
+    </button>
+      <button
+      type="button"
+      onclick="editRow()"
+      class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+    >
+      Save Changes
+    </button>
+      <button
+      type="button"
+      onclick="deleteRow()"
+      class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+    >
+      Delete
+    </button>
+    <button
+      type="button"
+      onclick="clearForm()"
+      class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+    >
+      Clear Form
+    </button>
+    <input
+      type="text"
+      id="Title1"
+      placeholder="Title1"
+      class="w-full p-2 border border-gray-300 rounded-md"
+    />
+    <input
+      type="text"
+      id="Image1"
+      placeholder="Image1"
+      class="w-full p-2 border border-gray-300 rounded-md"
+    />
+    <input
+      type="text"
+      id="Video1"
+      placeholder="Video1"
+      class="w-full p-2 border border-gray-300 rounded-md"
+    />
+    <input
+      type="text"
+      id="Audio1"
+      placeholder="Audio1"
+      class="w-full p-2 border border-gray-300 rounded-md"
+    />
+    <textarea
+      id="Caption1"
+      placeholder="Caption1"
+      rows="4"
+      class="w-full p-2 border border-gray-300 rounded-md"
+    ></textarea>
+
+    <input type="text" id="Title2" placeholder="Title2" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Image2" placeholder="Image2" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Video2" placeholder="Video2" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Audio2" placeholder="Audio2" class="w-full p-2 border border-gray-300 rounded-md" />
+    <textarea id="Caption2" placeholder="Caption2" rows="4" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+
+    <input type="text" id="Title3" placeholder="Title3" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Image3" placeholder="Image3" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Video3" placeholder="Video3" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Audio3" placeholder="Audio3" class="w-full p-2 border border-gray-300 rounded-md" />
+    <textarea id="Caption3" placeholder="Caption3" rows="4" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+
+    <input type="text" id="Title4" placeholder="Title4" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Image4" placeholder="Image4" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Video4" placeholder="Video4" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Audio4" placeholder="Audio4" class="w-full p-2 border border-gray-300 rounded-md" />
+    <textarea id="Caption4" placeholder="Caption4" rows="4" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+
+    <input type="text" id="Title5" placeholder="Title5" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Image5" placeholder="Image5" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Video5" placeholder="Video5" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Audio5" placeholder="Audio5" class="w-full p-2 border border-gray-300 rounded-md" />
+    <textarea id="Caption5" placeholder="Caption5" rows="4" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+
+    <input type="text" id="Title6" placeholder="Title6" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Image6" placeholder="Image6" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Video6" placeholder="Video6" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Audio6" placeholder="Audio6" class="w-full p-2 border border-gray-300 rounded-md" />
+    <textarea id="Caption6" placeholder="Caption6" rows="4" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+
+    <input type="text" id="Title7" placeholder="Title7" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Image7" placeholder="Image7" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Video7" placeholder="Video7" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Audio7" placeholder="Audio7" class="w-full p-2 border border-gray-300 rounded-md" />
+    <textarea id="Caption7" placeholder="Caption7" rows="4" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+
+    <input type="text" id="Title8" placeholder="Title8" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Image8" placeholder="Image8" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Video8" placeholder="Video8" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Audio8" placeholder="Audio8" class="w-full p-2 border border-gray-300 rounded-md" />
+    <textarea id="Caption8" placeholder="Caption8" rows="4" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+
+    <input type="text" id="Title9" placeholder="Title9" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Image9" placeholder="Image9" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Video9" placeholder="Video9" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Audio9" placeholder="Audio9" class="w-full p-2 border border-gray-300 rounded-md" />
+    <textarea id="Caption9" placeholder="Caption9" rows="4" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+
+    <input type="text" id="Title10" placeholder="Title10" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Image10" placeholder="Image10" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Video10" placeholder="Video10" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Audio10" placeholder="Audio10" class="w-full p-2 border border-gray-300 rounded-md" />
+    <textarea id="Caption10" placeholder="Caption10" rows="4" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+
+    <input type="text" id="Link1" placeholder="Link1" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="url1" placeholder="URL1" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Link2" placeholder="Link2" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="url2" placeholder="URL2" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="Link3" placeholder="Link3" class="w-full p-2 border border-gray-300 rounded-md" />
+    <input type="text" id="url3" placeholder="URL3" class="w-full p-2 border border-gray-300 rounded-md" />
+
+    </form>
+
+    <script>
+      function googleScriptCall(functionName, params, callback) {
+        google.script.run.withSuccessHandler(callback)[functionName](...params);
+      }
+
+      function addRow() {
+        const data = [
+            document.getElementById("id").value || "ID-" + Date.now(),
+            ...getDataEntryFields()
+        ];
+        googleScriptCall("addRow", [data], (message) => {
+          alert(message);
+          searchRows(); // Refresh the search results
+        });
+      }
+
+      function editRow() {
+        const id = document.getElementById("id").value;
+        const updatedData = [
+            id,
+            ...getDataEntryFields()
+        ];
+        googleScriptCall("editRow", [id, updatedData], (message) => {
+          alert(message);
+          searchRows(); // Refresh the search results
+        });
+      }
+
+      function deleteRow() {
+        const id = document.getElementById("id").value;
+        googleScriptCall("deleteRow", [id], (message) => {
+          alert(message);
+          searchRows(); // Refresh the search results
+        });
+      }
+
+
+
+      function clearSearchField() {
+          document.getElementById("searchQuery").value = "";
+      }
+
+      // Update button handlers
+      document.querySelector('button[onclick="addRow()"]').onclick = () => {
+          addRow();
+          clearSearchField();
+      };
+      document.querySelector('button[onclick="editRow()"]').onclick = () => {
+          editRow();
+          clearSearchField();
+      };
+      document.querySelector('button[onclick="deleteRow()"]').onclick = () => {
+          deleteRow();
+          clearSearchField();
+      };
+      document.querySelector('button[onclick="clearForm()"]').onclick = () => {
+          clearForm();
+          clearSearchField();
+      };
+
+
+      function searchRows() {
+          const query = document.getElementById("searchQuery").value;
+
+          // Only perform the search if the query has more than 2 characters
+          if (query.length <= 2) {
+              const table = document.getElementById("searchResults");
+              const tbody = table.querySelector("tbody");
+              const thead = table.querySelector("thead");
+              tbody.innerHTML = ""; // Clear previous results
+              thead.style.display = "none"; // Hide header
+              return; // Exit the function
+          }
+
+          googleScriptCall("searchRows", [query], (results) => {
+              const table = document.getElementById("searchResults");
+              const tbody = table.querySelector("tbody");
+              const thead = table.querySelector("thead");
+
+              tbody.innerHTML = ""; // Clear previous results
+
+              if (results.length === 0) {
+                  // Hide the header if no results
+                  thead.style.display = "none";
+              } else {
+                  // Show the header if there are results
+                  thead.style.display = "";
+                  results.forEach((row, rowIndex) => {
+                      const tr = document.createElement("tr");
+
+                      // Apply alternating row background for striping
+                      tr.className = rowIndex % 2 === 0 ? "bg-gray-100" : "bg-white";
+
+                      // Display only "id" and "Title"
+                      const fieldsToShow = [0, 2]; // Indices of "id" and "Title"
+                      fieldsToShow.forEach((index) => {
+                          const td = document.createElement("td");
+                          td.textContent = row[index];
+                          tr.appendChild(td);
+                      });
+
+                      // Add the "Select" button
+                      const actionTd = document.createElement("td");
+                      const selectBtn = document.createElement("button");
+                      selectBtn.textContent = "Select";
+                      selectBtn.className = "bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-all";
+                      selectBtn.onclick = () => populateForm(row); // Set up "Select" button to populate form
+                      actionTd.appendChild(selectBtn);
+                      tr.appendChild(actionTd);
+
+                      tbody.appendChild(tr);
+                  });
+              }
+          });
+      }
+
+      function populateForm(row) {
+          // console.log("Populating form with row data:", row);
+          if (row.length < 10) {
+              console.error("Row data is incomplete. Expected 10 elements:", row);
+              return;
+          }
+          document.getElementById("id").value = row[0]; // Populate ID
+          document.getElementById("Publish").value = row[1]; // Populate Publish
+          document.getElementById("Title").value = row[2]; // Populate Title
+          document.getElementById("Description").value = row[3]; // Populate Description
+          document.getElementById("Type").value = row[4]; // Populate Type
+          document.getElementById("Tags").value = row[5]; // Populate Tags
+          // Media blocks with Titles
+          document.getElementById("Title1").value = row[6]; // Title1
+          document.getElementById("Image1").value = row[7]; // Image1
+          document.getElementById("Video1").value = row[8]; // Video1
+          document.getElementById("Audio1").value = row[9]; // Audio1
+          document.getElementById("Caption1").value = row[10]; // Caption1
+
+          document.getElementById("Title2").value = row[11]; // Title2
+          document.getElementById("Image2").value = row[12]; // Image2
+          document.getElementById("Video2").value = row[13]; // Video2
+          document.getElementById("Audio2").value = row[14]; // Audio2
+          document.getElementById("Caption2").value = row[15]; // Caption2
+
+          document.getElementById("Title3").value = row[16]; // Title3
+          document.getElementById("Image3").value = row[17]; // Image3
+          document.getElementById("Video3").value = row[18]; // Video3
+          document.getElementById("Audio3").value = row[19]; // Audio3
+          document.getElementById("Caption3").value = row[20]; // Caption3
+
+          document.getElementById("Title4").value = row[21]; // Title4
+          document.getElementById("Image4").value = row[22]; // Image4
+          document.getElementById("Video4").value = row[23]; // Video4
+          document.getElementById("Audio4").value = row[24]; // Audio4
+          document.getElementById("Caption4").value = row[25]; // Caption4
+
+          document.getElementById("Title5").value = row[26]; // Title5
+          document.getElementById("Image5").value = row[27]; // Image5
+          document.getElementById("Video5").value = row[28]; // Video5
+          document.getElementById("Audio5").value = row[29]; // Audio5
+          document.getElementById("Caption5").value = row[30]; // Caption5
+
+          document.getElementById("Title6").value = row[31]; // Title6
+          document.getElementById("Image6").value = row[32]; // Image6
+          document.getElementById("Video6").value = row[33]; // Video6
+          document.getElementById("Audio6").value = row[34]; // Audio6
+          document.getElementById("Caption6").value = row[35]; // Caption6
+
+          document.getElementById("Title7").value = row[36]; // Title7
+          document.getElementById("Image7").value = row[37]; // Image7
+          document.getElementById("Video7").value = row[38]; // Video7
+          document.getElementById("Audio7").value = row[39]; // Audio7
+          document.getElementById("Caption7").value = row[40]; // Caption7
+
+          document.getElementById("Title8").value = row[41]; // Title8
+          document.getElementById("Image8").value = row[42]; // Image8
+          document.getElementById("Video8").value = row[43]; // Video8
+          document.getElementById("Audio8").value = row[44]; // Audio8
+          document.getElementById("Caption8").value = row[45]; // Caption8
+
+          document.getElementById("Title9").value = row[46]; // Title9
+          document.getElementById("Image9").value = row[47]; // Image9
+          document.getElementById("Video9").value = row[48]; // Video9
+          document.getElementById("Audio9").value = row[49]; // Audio9
+          document.getElementById("Caption9").value = row[50]; // Caption9
+
+          document.getElementById("Title10").value = row[51]; // Title10
+          document.getElementById("Image10").value = row[52]; // Image10
+          document.getElementById("Video10").value = row[53]; // Video10
+          document.getElementById("Audio10").value = row[54]; // Audio10
+          document.getElementById("Caption10").value = row[55]; // Caption10
+
+          document.getElementById("Link1").value = row[56]; // Populate Link1
+          document.getElementById("url1").value = row[57]; // Populate URL1
+          document.getElementById("Link2").value = row[58]; // Populate Link2
+          document.getElementById("url2").value = row[59]; // Populate URL2
+          document.getElementById("Link3").value = row[60]; // Populate Link3
+          document.getElementById("url3").value = row[61]; // Populate URL3       
+      
+      }
+
+      function clearForm() {
+          const fieldIds = [
+              "id", "Publish", "Title", "Description",
+              "Type", "Tags",
+              "Title1", "Image1", "Video1", "Audio1", "Caption1",
+              "Title2", "Image2", "Video2", "Audio2", "Caption2",
+              "Title3", "Image3", "Video3", "Audio3", "Caption3",
+              "Title4", "Image4", "Video4", "Audio4", "Caption4",
+              "Title5", "Image5", "Video5", "Audio5", "Caption5",
+              "Title6", "Image6", "Video6", "Audio6", "Caption6",
+              "Title7", "Image7", "Video7", "Audio7", "Caption7",
+              "Title8", "Image8", "Video8", "Audio8", "Caption8",
+              "Title9", "Image9", "Video9", "Audio9", "Caption9",
+              "Title10", "Image10", "Video10", "Audio10", "Caption10",
+              "Link1", "url1", "Link2", "url2", "Link3", "url3",
+          ];
+
+          fieldIds.forEach(id => {
+              const field = document.getElementById(id);
+              if (field) {
+                  if (field.type === "checkbox") {
+                      field.checked = false; // Uncheck checkboxes (if applicable)
+                  } else {
+                      field.value = ""; // Clear input and textarea values
+                  }
+              }
+          });
+      }
+
+      function getDataEntryFields() {
+          const fieldIds = [
+              "Publish", "Title", "Description",
+              "Type", "Tags",
+              "Title1", "Image1", "Video1", "Audio1", "Caption1",
+              "Title2", "Image2", "Video2", "Audio2", "Caption2",
+              "Title3", "Image3", "Video3", "Audio3", "Caption3",
+              "Title4", "Image4", "Video4", "Audio4", "Caption4",
+              "Title5", "Image5", "Video5", "Audio5", "Caption5",
+              "Title6", "Image6", "Video6", "Audio6", "Caption6",
+              "Title7", "Image7", "Video7", "Audio7", "Caption7",
+              "Title8", "Image8", "Video8", "Audio8", "Caption8",
+              "Title9", "Image9", "Video9", "Audio9", "Caption9",
+              "Title10", "Image10", "Video10", "Audio10", "Caption10",
+              "Link1", "url1", "Link2", "url2", "Link3", "url3",
+          ];
+          return fieldIds.map(id => document.getElementById(id).value);
+      }
+
+
+
+      function populateTagsFromSheet(tags) {
+          const tagsSelect = document.getElementById("Tags");
+          tagsSelect.innerHTML = ""; // Clear existing options
+          tags.forEach(tag => {
+              const option = document.createElement("option");
+              option.value = tag;
+              option.textContent = tag;
+              tagsSelect.appendChild(option);
+          });
+      }
+
+      function addNewTag() {
+          const newTagInput = document.getElementById("newTag");
+          const tagsSelect = document.getElementById("Tags");
+          if (newTagInput.value.trim()) {
+              const option = document.createElement("option");
+              option.value = newTagInput.value;
+              option.textContent = newTagInput.value;
+              tagsSelect.appendChild(option);
+              newTagInput.value = ""; // Clear the input field
+          }
+      }
+
+      function populateTypesFromSheet(types) {
+          const typeSelect = document.getElementById("Type");
+          typeSelect.innerHTML = ""; // Clear existing options
+          types.forEach(type => {
+              const option = document.createElement("option");
+              option.value = type;
+              option.textContent = type;
+              typeSelect.appendChild(option);
+          });
+      }
+
+      function addNewType() {
+          const newTypeInput = document.getElementById("newType");
+          const typeSelect = document.getElementById("Type");
+          if (newTypeInput.value.trim()) {
+              const option = document.createElement("option");
+              option.value = newTypeInput.value;
+              option.textContent = newTypeInput.value;
+              typeSelect.appendChild(option);
+              newTypeInput.value = ""; // Clear the input field
+          }
+      }
+
+
+      function populateOptions(data) {
+        // Populate the "Type" dropdown
+        const typeSelect = document.getElementById("Type");
+        typeSelect.innerHTML = ""; // Clear existing options
+        
+        // Add a default "Please Select" option
+        const defaultTypeOption = document.createElement("option");
+        defaultTypeOption.value = "";
+        defaultTypeOption.textContent = "Please Select";
+        typeSelect.appendChild(defaultTypeOption);
+
+        // Add each type as an option
+        data.Types.forEach(type => {
+          const option = document.createElement("option");
+          option.value = type;
+          option.textContent = type;
+          typeSelect.appendChild(option);
+        });
+
+        // Populate the "Tags" dropdown
+        const tagsSelect = document.getElementById("Tags");
+        tagsSelect.innerHTML = ""; // Clear existing options
+
+        // Add each tag as an option
+        data.Tags.forEach(tag => {
+          const option = document.createElement("option");
+          option.value = tag;
+          option.textContent = tag;
+          tagsSelect.appendChild(option);
+        });
+      }
+
+
+      // Call getOptions function after the form loads (replace with your actual function name)
+      google.script.run.withSuccessHandler(populateOptions).getOptions();
+
+    </script>
+  </body>
+</html>

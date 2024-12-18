@@ -66,8 +66,8 @@ export default function FetchCSVData() {
     }, [searchParams]);
 
     //const appsScriptUrl = "https://script.google.com/macros/s/AKfycbyzA5Ly5TBy-ITSqwrL4kJDmz6hgooh6qFjCLSV-Oi6xoBbghHfAlnRctJ5f-TmOw6wFA/exec?type=api"
-    const appsScriptUrl = "https://script.google.com/macros/s/AKfycbwEPO_lLY182Umdg4QPV4AkWZcjyd1UpO4Ww8gtcs8osT7xz1EyYsPcq31TYeFfJKw6/exec?type=api"
-
+    //const appsScriptUrl = "https://script.google.com/macros/s/AKfycbwEPO_lLY182Umdg4QPV4AkWZcjyd1UpO4Ww8gtcs8osT7xz1EyYsPcq31TYeFfJKw6/exec?type=api"
+    const appsScriptUrl = "https://script.google.com/macros/s/AKfycbyYYxmp_seUig0YOLTfFqaI902accksW9bEZy9hADG2UKogb1FvBw8tm0EUUI6WGaEN3A/exec?type=api"
     const fetchCSVData = useCallback(async () => {
         try {
             const response = await fetch(appsScriptUrl);
