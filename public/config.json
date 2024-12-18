@@ -1,0 +1,28 @@
+{
+    "users": {
+        "user1": {
+            "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ4GJUUoom_8yRW9uF9A5rAoDLbEalu-9DM6Pg3rcoxuhwF-TV3bOZ4Ccv2P7tBewEXGQ09qIgCwX0i/pub?gid=0&single=true&output=csv",
+            "company": "Company A",
+            "logo": "https://example.com/logo1.png",
+            "about": "Company A specializes in providing exceptional services to its clients."
+        },
+        "user2": {
+            "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1example2/pub?output=csv",
+            "company": "Company B",
+            "logo": "https://example.com/logo2.png",
+            "about": "Company B focuses on innovative solutions for modern businesses."
+        },
+        "user3": {
+            "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1example3/pub?output=csv",
+            "company": "Company C",
+            "logo": "https://example.com/logo3.png",
+            "about": "Company C is a leader in sustainable and environmentally-friendly products."
+        }
+    },
+    "default": {
+        "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSVHWDusXO-XG4BoXsbGa82d1Mb-fK1aEQn83rUn0RkVMH_PWNIXis1AmUK7GqU4Lps-6fKFlaIaMTM/pub?output=csv",
+        "company": "MINT Medien Dr. Ritter",
+        "logo": "https://example.com/default-logo.png",
+        "about": "This is the default company description."
+    }
+}
